@@ -15,6 +15,18 @@ class Node{
         int data;
         Node *next;
 };
+/// for GFG LINKED questions;
+struct GNode{
+int data;
+struct GNode *next;
+struct GNode *bottom;
+    GNode (int x){
+        data=x;
+        next=NULL;
+        bottom=NULL;
+    }
+};
+
 void printList(Node *n){
     while( n!= NULL){
         cout<< n->data <<"  " ;
@@ -226,6 +238,42 @@ class Solution{
                 }
                 return NULL;
             }
+
+            /// for flattening of the linked listsss
+            GNode *  mergeTwoLL(GNode* a, GNode* b){
+                GNode *temp= new GNode(0);
+                GNode *res=temp;
+
+                while(a!=NULL && b!=NULL){
+
+                    if(a->data < b->data){
+                        temp->bottom=a;
+                        temp=temp->bottom;
+                        a=a->bottom;
+                    }
+                    else{
+                        temp->bottom=b;
+                        temp=temp->bottom;
+                        b=b->bottom;
+
+                    }
+
+                }
+                if(a) temp->bottom=a;
+                else temp->bottom =b;
+                return res->bottom;
+            }
+
+            GNode *flatten (GNode * root){
+                if(root==NULL || root->next == NULL){
+                    return root;
+                }
+                root->next= flatten(root->next);
+                root=mergeTwoLL(root, root->next);
+                return root;
+            }
+
+
 
 };
 
