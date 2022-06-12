@@ -204,7 +204,28 @@ class Solution{
                 }
                 return dummy->next;
             }
+            }
             // finding the starting point of the cycle in the linked list.
+
+            Node *detectCycle(Node * head){
+                if(head==NULL || head->next==NULL) return NULL;
+
+                Node *fast=head,*slow=head,*entry=head;
+
+                while(fast->next && fast->next->next){
+                    fast=fast->next->next;
+                    slow=slow->next;
+                    if(fast=slow){
+                        while(entry!=slow){
+                            slow=slow->next;
+                            entry=entry->next;
+
+                        }
+                        return entry;
+                    }
+                }
+                return NULL;
+            }
 
 };
 
